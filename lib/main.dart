@@ -193,7 +193,7 @@ class SnakeState extends State<Snake> {
                 crossAxisCount: columns,
               ),
               itemBuilder: (BuildContext context, int index) {
-                var color;
+                var color = const Color.fromARGB(255, 66, 66, 66);
                 // double radius = 5;
                 double radiusTopLeft = 5;
                 double radiusTopRight = 5;
@@ -204,11 +204,10 @@ class SnakeState extends State<Snake> {
                 dynamic text = const Text('');
                 if (snake.contains(index)) {
                   // print('snake: $snake, index: $index');
-                  color = Color.fromARGB(255, 218, 177, 84);
+                  color = const Color.fromARGB(255, 218, 177, 84);
                   if (index == snake.first) {
-                    color = Color.fromARGB(255, 195, 158, 74);
+                    color = const Color.fromARGB(255, 195, 158, 74);
                     padding = 0;
-                    // text = Text('🐍');
                     if (direction == 'up') {
                       text = const Text('👀');
                       radiusBottomLeft = 0;
@@ -223,7 +222,6 @@ class SnakeState extends State<Snake> {
                         alignment: Alignment.center,
                         child: const Text('👀'),
                       );
-
                       radiusBottomRight = 0;
                       radiusTopRight = 0;
                     } else if (direction == 'right') {
@@ -232,29 +230,53 @@ class SnakeState extends State<Snake> {
                         alignment: Alignment.center,
                         child: const Text('👀'),
                       );
-
                       radiusBottomLeft = 0;
                       radiusTopLeft = 0;
-                    } else
+                    } else{
                       text = const Text('🕶️');
-                  } else if (index == snake.last) {
-                    color = const Color.fromARGB(255, 51, 122, 86);
+}                 } else if (index == snake.last) {
+                    color = const Color.fromARGB(255, 195, 158, 74);
                     padding = 0;
+                       if (direction == 'down') {
+                         text = const Text('⛆');
+                         radiusBottomLeft = 0;
+                         radiusBottomRight = 0;
+                       } else if (direction == 'up') {
+                        text = const Text('⛆');
+                        radiusTopLeft = 0;
+                        radiusTopRight = 0;
+                       } else if (direction == 'right') {
+                       text = Transform.rotate(
+                         angle: -pi / -2, // 90 degrees
+                         alignment: Alignment.center,
+                         child: const Text('⛆'),
+                       );
+                       radiusBottomRight = 0;
+                       radiusTopRight = 0;
+                       } else if (direction == 'left') {
+                       text = Transform.rotate(
+                         angle: -pi / 2, // -90 degrees
+                         alignment: Alignment.center,
+                         child: const Text('⛆'),
+                       );
+                       radiusBottomLeft = 0;
+                       radiusTopLeft = 0;
+                       } else{
+                       text = const Text('⛆');}
                   } else {
                     radiusTopLeft = 0;
                     radiusTopRight = 0;
                     radiusBottomLeft = 0;
                     radiusBottomRight = 0;
                     padding = 0;
+                    text =  const Text('⛆');
                   }
                 } else if (index == food) {
-                  text = FittedBox(
-                    child: const Text('🍎', textAlign: TextAlign.center),
+                  text = const FittedBox(
                     fit: BoxFit.contain,
+                    child: Text('🍎', textAlign: TextAlign.center),
                   );
-                  color = const Color.fromARGB(255, 66, 66, 66);
-                } else {
-                  color = const Color.fromARGB(255, 66, 66, 66);
+
                 }
                 return Container(
                     padding: EdgeInsets.all(padding),
